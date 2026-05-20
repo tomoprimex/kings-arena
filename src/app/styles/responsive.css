@@ -1,0 +1,377 @@
+/* Responsive Design for Kings Arena - Luxury Black & Gold Gaming Theme */
+
+/* Mobile First Approach */
+
+/* Extra Small Devices (320px - 480px) */
+@media (max-width: 480px) {
+  /* Typography */
+  .hero-title {
+    font-size: var(--text-3xl);
+    line-height: 1.2;
+  }
+  
+  .section-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .footer-logo {
+    font-size: var(--text-lg);
+  }
+  
+  /* Spacing */
+  .hero-content {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  .featured-tournaments {
+    padding: var(--space-3xl) 0;
+  }
+  
+  /* Navigation */
+  .navbar-container {
+    padding: var(--space-md);
+  }
+  
+  .navbar-logo {
+    font-size: var(--text-lg);
+  }
+  
+  /* Tournament Cards */
+  .tournaments-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .tournament-card {
+    margin-bottom: var(--space-md);
+  }
+  
+  .tournament-image {
+    height: 150px;
+  }
+  
+  /* Footer */
+  .footer {
+    padding: var(--space-2xl) 0 var(--space-xl);
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+  
+  /* Buttons */
+  .hero-cta,
+  .hero-cta-secondary {
+    width: 100%;
+    max-width: 280px;
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .join-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+  }
+}
+
+/* Small Devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  /* Navigation */
+  .navbar-links {
+    display: none;
+  }
+  
+  .navbar-login {
+    display: none;
+  }
+  
+  .navbar-toggle {
+    display: flex;
+  }
+  
+  .navbar-mobile {
+    display: block;
+  }
+  
+  /* Hero */
+  .hero-title {
+    font-size: var(--text-4xl);
+  }
+  
+  .hero-subtitle {
+    font-size: var(--text-lg);
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  
+  /* Tournament Cards */
+  .tournaments-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+  
+  /* Footer */
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+  
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+}
+
+/* Medium Devices (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Navigation */
+  .navbar-container {
+    padding: var(--space-md) var(--space-xl);
+  }
+  
+  /* Hero */
+  .hero-content {
+    padding: var(--space-4xl) var(--space-2xl);
+  }
+  
+  /* Tournament Cards */
+  .tournaments-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-xl);
+  }
+  
+  /* Footer */
+  .footer-container {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* Large Devices (1025px - 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  /* Typography */
+  .hero-title {
+    font-size: var(--text-5xl);
+  }
+  
+  /* Container */
+  .container {
+    max-width: 1100px;
+  }
+  
+  .navbar-container {
+    max-width: 1100px;
+  }
+  
+  .tournaments-grid {
+    max-width: 1100px;
+  }
+  
+  .footer-container {
+    max-width: 1100px;
+  }
+}
+
+/* Extra Large Devices (1281px and up) */
+@media (min-width: 1281px) {
+  /* Typography */
+  .hero-title {
+    font-size: var(--text-6xl);
+  }
+  
+  /* Container */
+  .container {
+    max-width: 1400px;
+  }
+  
+  .navbar-container {
+    max-width: 1400px;
+  }
+  
+  .tournaments-grid {
+    max-width: 1400px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: var(--space-2xl);
+  }
+  
+  .footer-container {
+    max-width: 1400px;
+  }
+}
+
+/* Landscape Orientation for Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: 100vh;
+    padding: var(--space-2xl) 0;
+  }
+  
+  .hero-content {
+    padding: var(--space-xl) var(--space-lg);
+  }
+  
+  .hero-title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .hero-subtitle {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .hero-buttons {
+    flex-direction: row;
+    gap: var(--space-md);
+  }
+}
+
+/* High Resolution Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper text and borders */
+  .navbar-logo,
+  .hero-title,
+  .section-title,
+  .tournament-name {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Enhanced shadows */
+  .gold-glow {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 60px rgba(212, 175, 55, 0.3);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable animations for users who prefer reduced motion */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hero::before,
+  .hero::after,
+  .hero-grid,
+  .hero-glow {
+    animation: none;
+  }
+  
+  .animate-float,
+  .animate-pulse,
+  .animate-gold-glow,
+  .animate-gold-pulse {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  /* Hide unnecessary elements */
+  .navbar,
+  .hero-buttons,
+  .join-btn,
+  .footer-social-links {
+    display: none;
+  }
+  
+  /* Ensure text is readable */
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+  
+  .hero-title,
+  .section-title,
+  .tournament-name {
+    color: black;
+    text-shadow: none;
+  }
+  
+  /* Remove backgrounds and shadows */
+  .hero,
+  .tournament-card,
+  .footer {
+    background: white;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
+
+/* Utility Classes for Responsive Design */
+.visible-xs { display: none !important; }
+.visible-sm { display: none !important; }
+.visible-md { display: none !important; }
+.visible-lg { display: none !important; }
+.visible-xl { display: none !important; }
+
+.hidden-xs { display: block !important; }
+.hidden-sm { display: block !important; }
+.hidden-md { display: block !important; }
+.hidden-lg { display: block !important; }
+.hidden-xl { display: block !important; }
+
+/* Extra Small */
+@media (max-width: 480px) {
+  .visible-xs { display: block !important; }
+  .hidden-xs { display: none !important; }
+}
+
+/* Small */
+@media (min-width: 481px) and (max-width: 768px) {
+  .visible-sm { display: block !important; }
+  .hidden-sm { display: none !important; }
+}
+
+/* Medium */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .visible-md { display: block !important; }
+  .hidden-md { display: none !important; }
+}
+
+/* Large */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .visible-lg { display: block !important; }
+  .hidden-lg { display: none !important; }
+}
+
+/* Extra Large */
+@media (min-width: 1281px) {
+  .visible-xl { display: block !important; }
+  .hidden-xl { display: none !important; }
+}
+
+/* Touch Device Specific */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .navbar-link,
+  .footer-link,
+  .join-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .hero-cta,
+  .hero-cta-secondary {
+    min-height: 48px;
+    padding: var(--space-md) var(--space-xl);
+  }
+  
+  /* Remove hover effects */
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .hover-gold:hover {
+    transform: none;
+  }
+}

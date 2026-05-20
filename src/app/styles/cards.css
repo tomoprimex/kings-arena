@@ -1,0 +1,356 @@
+/* Universal Card Styling - Luxury Black & Gold Gaming Theme */
+
+/* Base Card Container */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.05) 0%, 
+    transparent 100%
+  );
+  opacity: 0;
+  transition: var(--transition-normal);
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--gold-shadow);
+  border-color: var(--primary-gold);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Card Variants */
+.card-primary {
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  border: 2px solid var(--primary-gold);
+}
+
+.card-secondary {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-gold);
+}
+
+.card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+.card-gold {
+  background: linear-gradient(135deg, 
+    var(--primary-gold) 0%, 
+    var(--accent-gold) 100%
+  );
+  color: var(--text-primary);
+  border: 2px solid var(--primary-gold-light);
+}
+
+/* Card Header */
+.card-header {
+  border-bottom: 1px solid var(--border-gold);
+  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.card-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-gold);
+  text-shadow: var(--gold-glow);
+  margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Card Body */
+.card-body {
+  flex: 1;
+}
+
+/* Card Footer */
+.card-footer {
+  border-top: 1px solid var(--border-gold);
+  padding-top: var(--space-lg);
+  margin-top: var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Form Card Styling */
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.08) 0%, 
+    transparent 100%
+  );
+  opacity: 0;
+  transition: var(--transition-normal);
+  pointer-events: none;
+}
+
+.form-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gold-shadow);
+  border-color: var(--primary-gold);
+}
+
+.form-card:hover::before {
+  opacity: 1;
+}
+
+/* Input Card Styling */
+.input-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  position: relative;
+}
+
+.input-card:hover {
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.input-card:focus-within {
+  border-color: var(--primary-gold);
+  box-shadow: var(--gold-glow);
+}
+
+/* Form Group Card */
+.form-group-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  margin-bottom: var(--space-lg);
+}
+
+.form-group-card:hover {
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Info Card */
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  margin-bottom: var(--space-lg);
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gold-shadow);
+  border-color: var(--primary-gold);
+}
+
+/* Success Card */
+.success-card {
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 0, 0.1) 0%, 
+    transparent 100%
+  );
+  border: 2px solid rgba(0, 255, 0, 0.5);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  text-align: center;
+  backdrop-filter: var(--glass-blur);
+}
+
+.success-icon {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-lg);
+}
+
+/* Error Card */
+.error-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 0, 0, 0.1) 0%, 
+    transparent 100%
+  );
+  border: 2px solid rgba(255, 0, 0, 0.5);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+/* FAQ Card */
+.faq-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  margin-bottom: var(--space-lg);
+  cursor: pointer;
+}
+
+.faq-card:hover {
+  border-color: var(--primary-gold);
+  box-shadow: var(--gold-shadow);
+  transform: translateY(-2px);
+}
+
+.faq-card h3 {
+  color: var(--primary-gold);
+  text-shadow: var(--gold-glow);
+  margin-bottom: var(--space-md);
+}
+
+/* Contact Method Card */
+.contact-method-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.contact-method-card:hover {
+  border-color: var(--primary-gold);
+  box-shadow: var(--gold-shadow);
+  transform: translateY(-2px);
+}
+
+.method-icon-card {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl);
+  box-shadow: var(--gold-glow);
+}
+
+/* Quick Link Card */
+.quick-link-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  display: block;
+  text-decoration: none;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.quick-link-card:hover {
+  border-color: var(--primary-gold);
+  box-shadow: var(--gold-shadow);
+  transform: translateY(-2px);
+  color: var(--primary-gold);
+  text-decoration: none;
+}
+
+/* Response Time Card */
+.response-item-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  backdrop-filter: var(--glass-blur);
+  transition: var(--transition-normal);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.response-item-card:hover {
+  border-color: var(--primary-gold);
+  box-shadow: var(--gold-shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card,
+  .form-card {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .card-title {
+    font-size: var(--text-lg);
+  }
+  
+  .contact-method-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .response-item-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .card,
+  .form-card {
+    padding: var(--space-md);
+  }
+  
+  .card-title {
+    font-size: var(--text-base);
+  }
+}

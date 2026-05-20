@@ -1,0 +1,165 @@
+/* About Section - Luxury Black & Gold Gaming Theme */
+
+.about-section {
+  padding: var(--space-4xl) 0;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 80% 20%, 
+    rgba(212, 175, 55, 0.08) 0%, 
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+.about-text {
+  max-width: 600px;
+}
+
+.about-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-gold);
+  text-shadow: var(--gold-glow);
+  margin-bottom: var(--space-lg);
+}
+
+.about-description {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+}
+
+.feature-item {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-normal);
+}
+
+.feature-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--gold-shadow);
+  border-color: var(--primary-gold);
+}
+
+.feature-icon {
+  display: block;
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-md);
+}
+
+.feature-item h4 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--primary-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.feature-item p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.about-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 250px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition: var(--transition-normal);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--gold-shadow);
+  border-color: var(--primary-gold);
+}
+
+.stat-number {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-gold);
+  text-shadow: var(--gold-glow);
+  margin-bottom: var(--space-sm);
+}
+
+.stat-label {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+  
+  .about-features {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .about-stats {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  
+  .stat-card {
+    min-width: auto;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-stats {
+    gap: var(--space-md);
+  }
+  
+  .feature-item {
+    padding: var(--space-md);
+  }
+  
+  .stat-card {
+    padding: var(--space-lg);
+  }
+}

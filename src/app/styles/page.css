@@ -1,0 +1,313 @@
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+/* GLOBAL */
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ===== HERO SECTION ===== */
+.homeHero{
+  width:100%;
+  min-height:100vh;
+  padding:90px 20px 60px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  position:relative;
+}
+
+/* glow background */
+.homeHero::before{
+  content:"";
+  position:absolute;
+  top:-200px;
+  left:50%;
+  transform:translateX(-50%);
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(212,175,55,0.15), transparent 70%);
+  filter:blur(40px);
+  z-index:0;
+}
+
+.heroSection{
+  max-width:1100px;
+  text-align:center;
+  margin-top:40px;
+  z-index:1;
+}
+
+.heroTag{
+  color:#d4af37;
+  letter-spacing:4px;
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.heroTitle{
+  font-size:64px;
+  font-weight:800;
+  line-height:1.1;
+  color: white;
+}
+
+.heroTitle span{
+  color:#d4af37;
+  text-shadow:0 0 20px rgba(212,175,55,0.3);
+}
+
+.heroText{
+  color:#bdbdbd;
+  font-size:18px;
+  max-width:750px;
+  margin:25px auto;
+  line-height:1.6;
+}
+
+.heroButtons{
+  margin-top:35px;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+.goldBtn{
+  background:#d4af37;
+  border:none;
+  padding:12px 28px;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:10px;
+  transition:0.3s;
+  color:#000;
+}
+
+.goldBtn:hover{
+  transform:translateY(-3px);
+}
+
+.outlineBtn{
+  background:transparent;
+  border:1px solid #d4af37;
+  color:#d4af37;
+  padding:12px 28px;
+  font-weight:bold;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.outlineBtn:hover{
+  background:#d4af37;
+  color:#000;
+}
+
+/* ===== ARENA MODES ===== */
+.arenaModes{
+  margin-top:100px;
+  text-align:center;
+  padding:0 20px;
+}
+
+.sectionTitle{
+  color:#d4af37;
+  font-size:32px;
+}
+
+.sectionSub{
+  color:#aaa;
+  margin-top:10px;
+}
+
+.modesGrid{
+  margin-top:40px;
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  flex-wrap:wrap;
+  align-items:stretch;
+}
+
+.modeCard{
+  background:rgba(17,17,17,0.85);
+  border:1px solid rgba(212,175,55,0.15);
+  padding:25px;
+  width:260px;
+  border-radius:14px;
+  text-align:left;
+  transition:0.3s;
+  text-decoration:none;
+  display:block;
+}
+
+.modeCard:hover{
+  transform:translateY(-8px);
+  border-color:#d4af37;
+}
+
+.modeCard h3{
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.modeCard p{
+  color:#bbb;
+  font-size:14px;
+}
+
+/* ===== HOW IT WORKS ===== */
+.howItWorks{
+  margin-top:120px;
+  text-align:center;
+  padding:0 20px;
+}
+
+.howItWorks h2{
+  color:#d4af37;
+  font-size:32px;
+  margin-bottom:40px;
+}
+
+.stepsGrid{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.stepCard{
+  background:#111;
+  border:1px solid rgba(212,175,55,0.15);
+  padding:20px;
+  width:230px;
+  border-radius:12px;
+}
+
+.stepCard h3{
+  color:#d4af37;
+  margin-bottom:10px;
+}
+
+.stepCard p{
+  color:#bbb;
+  font-size:14px;
+}
+
+/* ===== FEATURED ===== */
+.featured{
+  margin-top:120px;
+  text-align:center;
+  padding:0 20px;
+}
+
+.featured h2{
+  color:#d4af37;
+  font-size:32px;
+  margin-bottom:30px;
+}
+
+.featuredCard{
+  background:rgba(17,17,17,0.9);
+  border:1px solid rgba(212,175,55,0.2);
+  padding:40px;
+  max-width:700px;
+  margin:auto;
+  border-radius:14px;
+}
+
+.featuredCard p{
+  color:#bbb;
+  margin-bottom:20px;
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{
+  opacity:0;
+  transform:translateY(60px); /* default desktop */
+  transition:all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translate(0,0);
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media(max-width:768px){
+
+  .heroTitle{
+    font-size:40px;
+  }
+
+  .heroText{
+    font-size:16px;
+  }
+
+  .heroButtons{
+    flex-direction:column;
+  }
+
+  .sectionTitle{
+    font-size:26px;
+  }
+
+  .modeCard{
+    width:100%;
+    max-width:350px;
+  }
+
+  .stepsGrid{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .stepCard{
+    width:100%;
+    max-width:300px;
+  }
+
+  .featuredCard{
+    padding:25px;
+  }
+
+  /* mobile animation */
+  .reveal{
+    transform:translateX(-60px);
+  }
+
+  .reveal.active{
+    transform:translateX(0);
+  }
+}
+
+/* Small Phones */
+@media(max-width:480px){
+
+  .heroTitle{
+    font-size:32px;
+  }
+
+  .heroText{
+    font-size:14px;
+  }
+
+  .heroTag{
+    font-size:11px;
+    letter-spacing:2px;
+  }
+
+  .goldBtn,
+  .outlineBtn{
+    width:100%;
+    text-align:center;
+  }
+}

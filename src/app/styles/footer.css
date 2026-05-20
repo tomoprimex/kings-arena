@@ -1,0 +1,297 @@
+/* Footer Styles - Luxury Black & Gold Gaming Theme */
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--glass-border);
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  margin-top: var(--space-4xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-primary);
+  animation: footerGlow 3s ease-in-out infinite;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-3xl);
+  position: relative;
+  z-index: 1;
+}
+
+/* Brand Section */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--primary-gold);
+  text-decoration: none;
+  text-shadow: var(--gold-glow);
+  transition: var(--transition-normal);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-logo:hover {
+  color: var(--primary-gold-light);
+  text-shadow: var(--gold-glow-strong);
+  transform: translateY(-2px);
+}
+
+.footer-logo span {
+  color: var(--text-primary);
+}
+
+.footer-tagline {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 300px;
+}
+
+/* Links Section */
+.footer-links h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+  text-shadow: var(--gold-glow);
+}
+
+.footer-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: var(--transition-normal);
+}
+
+.footer-link:hover {
+  color: var(--primary-gold);
+  background: var(--glass-bg);
+  transform: translateX(4px);
+}
+
+.footer-link:hover::before {
+  width: 100%;
+}
+
+/* Games Section */
+.footer-games h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+  text-shadow: var(--gold-glow);
+}
+
+.footer-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer-game {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.footer-game-icon {
+  font-size: var(--text-lg);
+  color: var(--primary-gold);
+}
+
+.footer-game:hover {
+  color: var(--primary-gold);
+  background: var(--glass-bg);
+  transform: translateX(4px);
+}
+
+/* Community Section */
+.footer-community h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+  text-shadow: var(--gold-glow);
+}
+
+.footer-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer-social-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-base);
+  transition: var(--transition-normal);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.footer-social-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-normal);
+}
+
+.footer-social-link:hover .footer-social-icon {
+  background: var(--gradient-primary);
+  box-shadow: var(--gold-glow);
+  transform: scale(1.1);
+}
+
+.footer-social-link:hover {
+  color: var(--primary-gold);
+  transform: translateX(4px);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--glass-border);
+  padding-top: var(--space-2xl);
+  text-align: center;
+  margin-top: var(--space-2xl);
+}
+
+.footer-copyright {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-bottom-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.footer-bottom-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: var(--transition-normal);
+}
+
+.footer-bottom-link:hover {
+  color: var(--primary-gold);
+  text-shadow: var(--gold-glow);
+}
+
+/* Animations */
+@keyframes footerGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleX(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    text-align: center;
+  }
+  
+  .footer-brand {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-links,
+  .footer-games,
+  .footer-community {
+    text-align: center;
+  }
+  
+  .footer-links h3,
+  .footer-games h3,
+  .footer-community h3 {
+    font-size: var(--text-xl);
+  }
+  
+  .footer-bottom-links {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: var(--space-2xl) 0 var(--space-xl);
+  }
+  
+  .footer-container {
+    gap: var(--space-xl);
+  }
+  
+  .footer-logo {
+    font-size: var(--text-xl);
+  }
+  
+  .footer-tagline {
+    font-size: var(--text-sm);
+  }
+}
