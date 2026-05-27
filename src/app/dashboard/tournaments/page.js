@@ -1,216 +1,167 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import TournamentCard from "../../components/TournamentCard";
+import TournamentCard from "@/components/TournamentCard";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
+import EmptyState from "@/components/EmptyState";
+import { supabase } from "@/lib/supabaseClient";
+import { Search } from "lucide-react";
 import "../../styles/tournaments.css";
+import AuthGuard from "@/components/AuthGuard";
 
 export default function MyTournaments() {
   const [tournaments, setTournaments] = useState([]);
+  const [filteredTournaments, setFilteredTournaments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("participating");
+  const [error, setError] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // Mock data - replace with actual API call
-    const mockTournaments = {
-      participating: [
-        {
-          id: 1,
-          name: "Kings Championship Season 1",
-          game: "eFootball",
-          gameIcon: "⚽",
-          status: "ongoing",
-          prizePool: "$10,000",
-          participants: 45,
-          maxParticipants: 64,
-          startDate: "2026-05-15",
-          yourPosition: "Round of 32",
-          nextMatch: "vs ProGamer2026"
-        },
-        {
-          id: 3,
-          name: "Continental Cup",
-          game: "Call of Duty",
-          gameIcon: "🎮",
-          status: "open",
-          prizePool: "$15,000",
-          participants: 12,
-          maxParticipants: 128,
-          startDate: "2026-05-20",
-          yourPosition: "Registered",
-          nextMatch: "TBD"
-        }
-      ],
-      hosting: [
-        {
-          id: 7,
-          name: "Custom Arena - KingSlayer99",
-          game: "FIFA",
-          gameIcon: "🏈",
-          status: "open",
-          prizePool: "$500",
-          participants: 8,
-          maxParticipants: 16,
-          startDate: "2026-05-12",
-          yourRole: "Host"
-        }
-      ],
-      completed: [
-        {
-          id: 4,
-          name: "Friendly Arena Championship",
-          game: "eFootball",
-          gameIcon: "⚽",
-          status: "completed",
-          prizePool: "$2,000",
-          participants: 16,
-          maxParticipants: 16,
-          startDate: "2026-05-01",
-          yourResult: "3rd Place",
-          earnings: "$500"
-        }
-      ]
-    };
-
-    setTimeout(() => {
-      setTournaments(mockTournaments);
-      setLoading(false);
-    }, 1000);
+    fetchTournaments();
   }, []);
 
-  const currentTournaments = tournaments[activeTab] || [];
+  useEffect(() => {
+    filterTournaments();
+  }, [tournaments, activeFilter, searchQuery]);
+
+  const fetchTournaments = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('tournaments')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      setTournaments(data || []);
+    } catch (error) {
+      console.error('Error fetching tournaments:', error);
+      setError('Failed to load tournaments. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filterTournaments = () => {
+    let filtered = [...tournaments];
+
+    // Apply status filter
+    if (activeFilter !== "all") {
+      filtered = filtered.filter(tournament => {
+        const status = tournament.status?.toLowerCase();
+        return status === activeFilter;
+      });
+    }
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(tournament =>
+        tournament.name?.toLowerCase().includes(query) ||
+        tournament.game?.toLowerCase().includes(query) ||
+        tournament.description?.toLowerCase().includes(query)
+      );
+    }
+
+    setFilteredTournaments(filtered);
+  };
+
+  const handleJoinTournament = (tournamentId) => {
+    // TODO: Implement tournament join logic
+    console.log('Join tournament:', tournamentId);
+  };
 
   if (loading) {
     return (
-      <div className="tournaments">
-        <div className="tournamentsContainer">
-          <h1>Loading your tournaments...</h1>
+      <AuthGuard>
+        <div className="tournaments-page">
+          <div className="tournaments-container">
+            <LoadingSkeleton />
+          </div>
         </div>
-      </div>
+      </AuthGuard>
+    );
+  }
+
+  if (error) {
+    return (
+      <AuthGuard>
+        <div className="tournaments-page">
+          <div className="tournaments-container">
+            <EmptyState message={error} />
+          </div>
+        </div>
+      </AuthGuard>
     );
   }
 
   return (
-    <div className="tournaments">
-      <div className="tournamentsContainer">
-        <div className="tournamentsHeader">
-          <h1 className="tournamentsTitle">My Tournaments</h1>
-          <p className="tournamentsSubtitle">
-            Manage your tournament participation and hosting
-          </p>
-        </div>
-
-        <div className="tournamentTabs">
-          <button 
-            className={`tabBtn ${activeTab === "participating" ? "active" : ""}`}
-            onClick={() => setActiveTab("participating")}
-          >
-            Participating ({tournaments.participating?.length || 0})
-          </button>
-          <button 
-            className={`tabBtn ${activeTab === "hosting" ? "active" : ""}`}
-            onClick={() => setActiveTab("hosting")}
-          >
-            Hosting ({tournaments.hosting?.length || 0})
-          </button>
-          <button 
-            className={`tabBtn ${activeTab === "completed" ? "active" : ""}`}
-            onClick={() => setActiveTab("completed")}
-          >
-            Completed ({tournaments.completed?.length || 0})
-          </button>
-        </div>
-
-        <div className="tournamentsGrid">
-          {currentTournaments.map((tournament) => (
-            <div key={tournament.id} className="myTournamentCard">
-              <div className="tournamentHeader">
-                <h3>{tournament.name}</h3>
-                <span className={`tournamentStatus ${tournament.status}`}>
-                  {tournament.status}
-                </span>
-              </div>
-              
-              <div className="tournamentInfo">
-                <div className="tournamentGame">
-                  <span className="gameIcon">{tournament.gameIcon}</span>
-                  <span>{tournament.game}</span>
-                </div>
-                
-                <div className="tournamentDetails">
-                  <p>
-                    <strong>Prize Pool:</strong> {tournament.prizePool}
-                  </p>
-                  <p>
-                    <strong>Participants:</strong> {tournament.participants}/{tournament.maxParticipants}
-                  </p>
-                  <p>
-                    <strong>Start Date:</strong> {tournament.startDate}
-                  </p>
-                  
-                  {tournament.yourPosition && (
-                    <p>
-                      <strong>Your Position:</strong> {tournament.yourPosition}
-                    </p>
-                  )}
-                  
-                  {tournament.nextMatch && (
-                    <p>
-                      <strong>Next Match:</strong> {tournament.nextMatch}
-                    </p>
-                  )}
-                  
-                  {tournament.yourResult && (
-                    <p>
-                      <strong>Your Result:</strong> {tournament.yourResult}
-                    </p>
-                  )}
-                  
-                  {tournament.earnings && (
-                    <p>
-                      <strong>Earnings:</strong> {tournament.earnings}
-                    </p>
-                  )}
-                  
-                  {tournament.yourRole && (
-                    <p>
-                      <strong>Your Role:</strong> {tournament.yourRole}
-                    </p>
-                  )}
-                </div>
-              </div>
-              
-              <div className="tournamentActions">
-                <button className="viewBtn">View Details</button>
-                {tournament.status === "ongoing" && (
-                  <button className="actionBtn">View Bracket</button>
-                )}
-                {tournament.status === "open" && activeTab === "participating" && (
-                  <button className="actionBtn">Withdraw</button>
-                )}
-                {activeTab === "hosting" && (
-                  <button className="actionBtn">Manage</button>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {currentTournaments.length === 0 && (
-          <div className="noTournaments">
-            <h3>No tournaments found</h3>
-            <p>
-              {activeTab === "participating" && "You haven't joined any tournaments yet."}
-              {activeTab === "hosting" && "You haven't hosted any tournaments yet."}
-              {activeTab === "completed" && "You haven't completed any tournaments yet."}
+    <AuthGuard>
+      <div className="tournaments-page">
+        <div className="tournaments-container">
+          <div className="tournaments-header">
+            <h1 className="tournaments-title">Tournaments</h1>
+            <p className="tournaments-subtitle">
+              Browse and join competitive gaming tournaments
             </p>
-            <button className="browseBtn">Browse Tournaments</button>
           </div>
-        )}
 
-        <div className="quickActions">
-          <button className="createTournamentBtn">Create Tournament</button>
-          <button className="browseTournamentsBtn">Browse More</button>
+          <div className="tournaments-controls">
+            <div className="filter-tabs">
+              <button
+                className={`filter-tab ${activeFilter === "all" ? "active" : ""}`}
+                onClick={() => setActiveFilter("all")}
+              >
+                All ({tournaments.length})
+              </button>
+              <button
+                className={`filter-tab ${activeFilter === "ongoing" ? "active" : ""}`}
+                onClick={() => setActiveFilter("ongoing")}
+              >
+                Ongoing
+              </button>
+              <button
+                className={`filter-tab ${activeFilter === "upcoming" ? "active" : ""}`}
+                onClick={() => setActiveFilter("upcoming")}
+              >
+                Upcoming
+              </button>
+              <button
+                className={`filter-tab ${activeFilter === "completed" ? "active" : ""}`}
+                onClick={() => setActiveFilter("completed")}
+              >
+                Completed
+              </button>
+            </div>
+
+            <div className="search-bar">
+              <Search size={18} />
+              <input
+                type="text"
+                placeholder="Search tournaments..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+              />
+            </div>
+          </div>
+
+          {filteredTournaments.length > 0 ? (
+            <div className="tournaments-grid">
+              {filteredTournaments.map((tournament) => (
+                <TournamentCard
+                  key={tournament.id}
+                  tournament={tournament}
+                  onJoin={handleJoinTournament}
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyState message="No tournaments found matching your criteria" />
+          )}
         </div>
       </div>
-    </div>
+    </AuthGuard>
   );
 }

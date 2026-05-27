@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "../../styles/dashboard.css";
-import { supabase } from "../../../lib/supabase";
+import { supabase } from "@/lib/supabaseClient";
+import AuthGuard from "@/components/AuthGuard";
 
 export default function Settings() {
   const [settings, setSettings] = useState(null);
@@ -101,8 +102,9 @@ export default function Settings() {
   }
 
   return (
-    <div className="dashboard">
-      <div className="dashboardContainer">
+    <AuthGuard>
+      <div className="dashboard">
+        <div className="dashboardContainer">
         <div className="dashboardHeader">
           <h1 className="dashboardTitle">Settings</h1>
           <p className="dashboardSubtitle">
@@ -316,5 +318,6 @@ export default function Settings() {
         </form>
       </div>
     </div>
+    </AuthGuard>
   );
 }

@@ -240,7 +240,7 @@ export const adminAPI = {
 export const handleApiError = (error) => {
   if (error.message.includes('401')) {
     // Unauthorized - redirect to login
-    window.location.href = '/auth/login';
+    window.location.href = '/login';
   } else if (error.message.includes('403')) {
     // Forbidden - show access denied message
     console.error('Access denied: You do not have permission to perform this action');

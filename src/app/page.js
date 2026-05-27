@@ -2,17 +2,18 @@
 import "./styles/page.css";
 import React from "react";
 import Link from "next/link";
-import Navbar from "./components/navbar";
+import { Trophy, Globe, BarChart3 } from "lucide-react";
 import Hero from "./components/hero";
 import TournamentCard from "./components/TournamentCard";
-import Footer from "./components/footer";
+import GamesCarousel from "./components/GamesCarousel";
 import "./styles/animations.css";
 import "./styles/leaderboard.css";
 import "./styles/about.css";
+import "./styles/games-carousel.css";
 
 export default function Home() {
   // Mock tournament data
-  
+
   // State for animated counting
   const [playersCount, setPlayersCount] = React.useState(0);
   const [prizeCount, setPrizeCount] = React.useState(0);
@@ -92,8 +93,8 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
       <Hero />
+      <GamesCarousel />
 
       {/* About Section */}
       <section className="about-section">
@@ -107,6 +108,7 @@ export default function Home() {
 
           <div className="about-content">
             <div className="about-text">
+              
               <h3 className="about-title">Where Champions Are Made</h3>
               <p className="about-description">
                 Kings Arena is the premier esports platform where competitive gamers from around the world 
@@ -116,17 +118,17 @@ export default function Home() {
               </p>
               <div className="about-features">
                 <div className="feature-item">
-                  <span className="feature-icon">🏆</span>
+                  <span className="feature-icon"><Trophy size={32} /></span>
                   <h4>Competitive Tournaments</h4>
                   <p>Regular tournaments with massive prize pools and professional organization</p>
                 </div>
                 <div className="feature-item">
-                  <span className="feature-icon">🌍</span>
+                  <span className="feature-icon"><Globe size={32} /></span>
                   <h4>Global Community</h4>
                   <p>Connect with players from every corner of the world</p>
                 </div>
                 <div className="feature-item">
-                  <span className="feature-icon">📊</span>
+                  <span className="feature-icon"><BarChart3 size={32} /></span>
                   <h4>Ranking System</h4>
                   <p>Climb the leaderboards and prove your dominance</p>
                 </div>

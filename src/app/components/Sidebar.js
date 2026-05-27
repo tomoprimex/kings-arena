@@ -35,8 +35,8 @@ export default function Sidebar() {
         </nav>
         
         <div className="sidebarFooter">
-          <Link href="/auth/login" className="loginBtn">Sign In</Link>
-          <Link href="/auth/signup" className="signupBtn">Sign Up</Link>
+          <Link href="/login" className="loginBtn">Sign In</Link>
+          <Link href="/signup" className="signupBtn">Sign Up</Link>
         </div>
       </div>
       

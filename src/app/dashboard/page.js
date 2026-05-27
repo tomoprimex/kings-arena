@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { Crown, Trophy, Target, Medal, TrendingUp, Star, Users, BarChart3, User } from "lucide-react";
 import "../styles/dashboard.css";
 import Loader from "../components/Loader";
+import AuthGuard from "@/components/AuthGuard";
 
 export default function Dashboard() {
   const [userStats, setUserStats] = useState(null);
@@ -30,7 +32,7 @@ export default function Dashboard() {
         title: "Match Victory",
         description: "Defeated ProGamer2026 in eFootball",
         time: "2 hours ago",
-        icon: "🏆"
+        icon: <Trophy size={20} />
       },
       {
         id: 2,
@@ -38,7 +40,7 @@ export default function Dashboard() {
         title: "Tournament Joined",
         description: "Registered for Kings Championship Season 1",
         time: "1 day ago",
-        icon: "🎯"
+        icon: <Target size={20} />
       },
       {
         id: 3,
@@ -46,7 +48,7 @@ export default function Dashboard() {
         title: "New Achievement",
         description: "Unlocked 'Win Streak Master' badge",
         time: "3 days ago",
-        icon: "🏅"
+        icon: <Medal size={20} />
       },
       {
         id: 4,
@@ -54,7 +56,7 @@ export default function Dashboard() {
         title: "Rank Up",
         description: "Climbed from rank 15 to rank 12",
         time: "1 week ago",
-        icon: "📈"
+        icon: <TrendingUp size={20} />
       }
     ];
 
@@ -76,8 +78,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="dashboard">
-      <div className="dashboardContainer">
+    <AuthGuard>
+      <div className="dashboard">
+        <div className="dashboardContainer">
         <div className="dashboardHeader">
           <h1 className="dashboardTitle">Dashboard</h1>
           <p className="dashboardSubtitle">
@@ -109,7 +112,7 @@ export default function Dashboard() {
           <div className="dashboardCard">
             <div className="cardHeader">
               <h3 className="cardTitle">Current Rank</h3>
-              <span className="cardIcon">👑</span>
+              <span className="cardIcon"><Crown size={24} /></span>
             </div>
             <div className="cardValue">#{userStats.currentRank}</div>
             <div className="cardDescription">Global ranking</div>
@@ -118,7 +121,7 @@ export default function Dashboard() {
           <div className="dashboardCard">
             <div className="cardHeader">
               <h3 className="cardTitle">Points</h3>
-              <span className="cardIcon">⭐</span>
+              <span className="cardIcon"><Star size={24} /></span>
             </div>
             <div className="cardValue">{userStats.points.toLocaleString()}</div>
             <div className="cardDescription">Total points earned</div>
@@ -129,7 +132,7 @@ export default function Dashboard() {
           <div className="dashboardCard">
             <div className="cardHeader">
               <h3 className="cardTitle">Level</h3>
-              <span className="cardIcon">📈</span>
+              <span className="cardIcon"><TrendingUp size={24} /></span>
             </div>
             <div className="cardValue">{userStats.level}</div>
             <div className="cardDescription">Current player level</div>
@@ -138,7 +141,7 @@ export default function Dashboard() {
           <div className="dashboardCard">
             <div className="cardHeader">
               <h3 className="cardTitle">Tournaments</h3>
-              <span className="cardIcon">🏆</span>
+              <span className="cardIcon"><Trophy size={24} /></span>
             </div>
             <div className="cardValue">{userStats.tournaments}</div>
             <div className="cardDescription">Active tournaments</div>
@@ -147,7 +150,7 @@ export default function Dashboard() {
           <div className="dashboardCard">
             <div className="cardHeader">
               <h3 className="cardTitle">Achievements</h3>
-              <span className="cardIcon">🏅</span>
+              <span className="cardIcon"><Medal size={24} /></span>
             </div>
             <div className="cardValue">{userStats.achievements}</div>
             <div className="cardDescription">Unlocked achievements</div>
@@ -156,7 +159,7 @@ export default function Dashboard() {
           <div className="dashboardCard">
             <div className="cardHeader">
               <h3 className="cardTitle">Next Goal</h3>
-              <span className="cardIcon">🎯</span>
+              <span className="cardIcon"><Target size={24} /></span>
             </div>
             <div className="cardValue">Top 10</div>
             <div className="cardDescription">Reach top 10 ranking</div>
@@ -181,23 +184,24 @@ export default function Dashboard() {
 
         <div className="quickActions">
           <Link href="/tournaments" className="actionBtn">
-            <span className="actionIcon">🏆</span>
+            <span className="actionIcon"><Trophy size={20} /></span>
             <span className="actionText">Browse Tournaments</span>
           </Link>
           <Link href="/players" className="actionBtn">
-            <span className="actionIcon">👥</span>
+            <span className="actionIcon"><Users size={20} /></span>
             <span className="actionText">Find Players</span>
           </Link>
           <Link href="/leaderboard" className="actionBtn">
-            <span className="actionIcon">📊</span>
+            <span className="actionIcon"><BarChart3 size={20} /></span>
             <span className="actionText">View Leaderboard</span>
           </Link>
           <Link href="/dashboard/profile" className="actionBtn">
-            <span className="actionIcon">👤</span>
+            <span className="actionIcon"><User size={20} /></span>
             <span className="actionText">Edit Profile</span>
           </Link>
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

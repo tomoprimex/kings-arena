@@ -1,11 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { useRouter } from "next/navigation";
+import { Trophy, Heart, Gamepad2, Users, BarChart3 } from "lucide-react";
 import "../styles/cards.css";
 import "../styles/profile.css";
+import { supabase } from "@/lib/supabaseClient";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Profile() {
-  const [user, setUser] = useState(null);
+  const router = useRouter();
+  const authUser = useAuth();
   const [profile, setProfile] = useState(null);
   const [posts, setPosts] = useState([]);
   const [friends, setFriends] = useState([]);
@@ -22,28 +26,31 @@ export default function Profile() {
     clan_tag: ""
   });
 
+  // Immediate redirect if not authenticated
   useEffect(() => {
-    fetchProfileData();
-  }, []);
+    if (!authUser.loading && !authUser.user) {
+      router.replace("/auth/login");
+    }
+  }, [authUser.loading, authUser.user, router]);
+
+  useEffect(() => {
+    if (authUser.user) {
+      fetchProfileData();
+    }
+  }, [authUser.user]);
+
+
 
   const fetchProfileData = async () => {
     try {
-      // Get current user
-      const { data: { user: currentUser } } = await supabase.auth.getUser();
-      if (!currentUser) {
-        // Redirect to login if not authenticated
-        window.location.href = '/auth/login';
-        return;
-      }
-      setUser(currentUser);
-
-      // Fetch profile data
-      const { data: profileData } = await supabase
+      // Fetch profile from Supabase
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', currentUser.id)
+        .eq('id', authUser.user.id)
         .single();
 
+      if (profileError) throw profileError;
       setProfile(profileData);
       setEditProfile({
         bio: profileData?.bio || "",
@@ -53,40 +60,17 @@ export default function Profile() {
         clan_tag: profileData?.clan_tag || ""
       });
 
-      // Fetch user's posts
-      const { data: postsData } = await supabase
-        .from('posts')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .order('created_at', { ascending: false });
+      // Fetch posts (placeholder - create posts table later)
+      setPosts([]);
 
-      setPosts(postsData || []);
+      // Fetch friends (placeholder - create friends table later)
+      setFriends([]);
 
-      // Fetch friends
-      const { data: friendsData } = await supabase
-        .from('friends')
-        .select('profiles(*)')
-        .or(`user_id.eq.${currentUser.id},friend_id.eq.${currentUser.id}`);
+      // Fetch achievements (placeholder - create achievements table later)
+      setAchievements([]);
 
-      setFriends(friendsData || []);
-
-      // Fetch achievements
-      const { data: achievementsData } = await supabase
-        .from('user_achievements')
-        .select('achievements(*)')
-        .eq('user_id', currentUser.id);
-
-      setAchievements(achievementsData || []);
-
-      // Fetch match history
-      const { data: matchData } = await supabase
-        .from('matches')
-        .select('*')
-        .or(`player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id}`)
-        .order('created_at', { ascending: false })
-        .limit(10);
-
-      setMatchHistory(matchData || []);
+      // Fetch match history (placeholder - create matches table later)
+      setMatchHistory([]);
 
     } catch (error) {
       console.error('Error fetching profile data:', error);
@@ -97,19 +81,10 @@ export default function Profile() {
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-    if (!newPost.trim() || !user) return;
+    if (!newPost.trim() || !authUser.user) return;
 
     try {
-      const { data } = await supabase
-        .from('posts')
-        .insert({
-          user_id: user.id,
-          content: newPost,
-          type: 'status'
-        })
-        .select();
-
-      setPosts([data[0], ...posts]);
+      // Placeholder for post creation - create posts table later
       setNewPost("");
     } catch (error) {
       console.error('Error creating post:', error);
@@ -118,19 +93,29 @@ export default function Profile() {
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
-    if (!user) return;
+    if (!authUser.user) return;
 
     try {
-      const { data } = await supabase
+      const { error } = await supabase
         .from('profiles')
-        .upsert({
-          user_id: user.id,
-          ...editProfile,
+        .update({
+          bio: editProfile.bio,
+          banner_url: editProfile.banner_url,
+          avatar_url: editProfile.avatar_url,
+          clan_tag: editProfile.clan_tag,
           updated_at: new Date().toISOString()
         })
-        .select();
+        .eq('id', authUser.user.id);
 
-      setProfile(data[0]);
+      if (error) throw error;
+
+      setProfile({
+        ...profile,
+        bio: editProfile.bio,
+        banner_url: editProfile.banner_url,
+        avatar_url: editProfile.avatar_url,
+        clan_tag: editProfile.clan_tag
+      });
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -139,13 +124,8 @@ export default function Profile() {
 
   const handleChallenge = async (friendId) => {
     try {
-      await supabase
-        .from('challenges')
-        .insert({
-          challenger_id: user.id,
-          challenged_id: friendId,
-          status: 'pending'
-        });
+      // Mock challenge creation
+      console.log('Challenge sent to friend:', friendId);
     } catch (error) {
       console.error('Error sending challenge:', error);
     }
@@ -161,11 +141,11 @@ export default function Profile() {
 
   return (
     <div className="profile-container">
-      {/* Profile Header */}
+        {/* Profile Header */}
       <div className="card profile-header">
         <div className="profile-banner">
           <img 
-            src={profile?.banner_url || "/images/default-banner.jpg"} 
+            src={profile?.banner_url || "https://tfcofdicqfwlocuuzqli.supabase.co/storage/v1/object/public/avatars/bio.jpg"} 
             alt="Profile Banner" 
           />
           <button 
@@ -179,34 +159,34 @@ export default function Profile() {
         <div className="profile-info">
           <div className="profile-avatar">
             <img 
-              src={profile?.avatar_url || "/images/default-avatar.jpg"} 
+              src={profile?.avatar_url || "https://tfcofdicqfwlocuuzqli.supabase.co/storage/v1/object/public/avatars/bio.jpg"} 
               alt="Profile Avatar" 
             />
           </div>
           
           <div className="profile-details">
             <h1 className="profile-username">
-              {user?.user_metadata?.username || 'Player'}
+              {profile?.username || authUser?.user_metadata?.username || 'Player'}
               {profile?.clan_tag && <span className="clan-tag">[{profile.clan_tag}]</span>}
             </h1>
             <p className="profile-bio">{profile?.bio || 'No bio yet'}</p>
             
             <div className="profile-stats">
               <div className="stat-item">
-                <span className="stat-number">{profile?.wins || 0}</span>
+                <span className="stat-number">{profile?.tournaments_won || 0}</span>
                 <span className="stat-label">Wins</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{profile?.losses || 0}</span>
-                <span className="stat-label">Losses</span>
+                <span className="stat-number">{profile?.tournaments_played || 0}</span>
+                <span className="stat-label">Tournaments</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{profile?.rank || 'Unranked'}</span>
-                <span className="stat-label">Rank</span>
+                <span className="stat-number">{profile?.rank_points || 0}</span>
+                <span className="stat-label">Points</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">{profile?.level || 1}</span>
-                <span className="stat-label">Level</span>
+                <span className="stat-number">{profile?.role || 'player'}</span>
+                <span className="stat-label">Role</span>
               </div>
             </div>
           </div>
@@ -331,7 +311,7 @@ export default function Profile() {
                   <div key={match.id} className="match-card">
                     <div className="match-info">
                       <span className="match-result">
-                        {match.winner_id === user.id ? '🏆 Victory' : '💔 Defeat'}
+                        {match.winner_id === authUser.user.id ? <><Trophy size={16} /> Victory</> : <><Heart size={16} /> Defeat</>}
                       </span>
                       <span className="match-game">{match.game}</span>
                       <span className="match-time">
@@ -388,7 +368,7 @@ export default function Profile() {
               ) : (
                 achievements.map((achievement) => (
                   <div key={achievement.id} className="achievement-card">
-                    <div className="achievement-icon">🏆</div>
+                    <div className="achievement-icon"><Trophy size={24} /></div>
                     <div className="achievement-info">
                       <span className="achievement-name">{achievement.achievements?.name}</span>
                       <span className="achievement-desc">{achievement.achievements?.description}</span>
@@ -405,10 +385,10 @@ export default function Profile() {
               <h3 className="card-title">Quick Actions</h3>
             </div>
             <div className="quick-actions">
-              <button className="action-card">🎮 Find Match</button>
-              <button className="action-card">🏆 Join Tournament</button>
-              <button className="action-card">👥 Create Team</button>
-              <button className="action-card">📊 View Stats</button>
+              <button className="action-card"><Gamepad2 size={20} /> Find Match</button>
+              <button className="action-card"><Trophy size={20} /> Join Tournament</button>
+              <button className="action-card"><Users size={20} /> Create Team</button>
+              <button className="action-card"><BarChart3 size={20} /> View Stats</button>
             </div>
           </div>
         </div>

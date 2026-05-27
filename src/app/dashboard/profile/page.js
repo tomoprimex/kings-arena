@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import "../../styles/dashboard.css";
-import { supabase } from "../../../lib/supabase";
+import { supabase } from "@/lib/supabaseClient";
+import AuthGuard from "@/components/AuthGuard";
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
@@ -122,8 +123,9 @@ export default function Profile() {
   }
 
   return (
-    <div className="dashboard">
-      <div className="dashboardContainer">
+    <AuthGuard>
+      <div className="dashboard">
+        <div className="dashboardContainer">
         <div className="dashboardHeader">
           <h1 className="dashboardTitle">Edit Profile</h1>
           <p className="dashboardSubtitle">
@@ -283,5 +285,6 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

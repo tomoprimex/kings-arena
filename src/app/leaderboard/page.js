@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { Crown, Trophy, Target, Zap, Flame } from "lucide-react";
 import "../styles/players.css";
 import "../styles/cards.css";
 import "../styles/leaderboard.css";
+import { getGlobalLeaderboard } from "@/lib/leaderboard";
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -12,112 +14,32 @@ export default function Leaderboard() {
   const [category, setCategory] = useState("global");
   const [season, setSeason] = useState("current");
 
-  // Mock data - replace with actual API call
   useEffect(() => {
-    const mockLeaderboard = [
-      {
-        rank: 1,
-        username: "KingSlayer99",
-        points: 12500,
-        level: 45,
-        winRate: 78.5,
-        totalMatches: 234,
-        games: ["eFootball", "FIFA"],
-        avatar: "/images/player1.jpg",
-        trend: "up",
-        change: 2
-      },
-      {
-        rank: 2,
-        username: "ProGamer2026",
-        points: 11800,
-        level: 42,
-        winRate: 75.2,
-        totalMatches: 198,
-        games: ["Call of Duty", "eFootball"],
-        avatar: "/images/player2.jpg",
-        trend: "up",
-        change: 1
-      },
-      {
-        rank: 3,
-        username: "ArenaMaster",
-        points: 10900,
-        level: 40,
-        winRate: 72.8,
-        totalMatches: 167,
-        games: ["FIFA", "Call of Duty"],
-        avatar: "/images/player3.jpg",
-        trend: "down",
-        change: 1
-      },
-      {
-        rank: 4,
-        username: "ChampionX",
-        points: 9800,
-        level: 38,
-        winRate: 70.1,
-        totalMatches: 145,
-        games: ["eFootball"],
-        avatar: "/images/player4.jpg",
-        trend: "same",
-        change: 0
-      },
-      {
-        rank: 5,
-        username: "ElitePlayer",
-        points: 8900,
-        level: 36,
-        winRate: 68.9,
-        totalMatches: 132,
-        games: ["Call of Duty"],
-        avatar: "/images/player5.jpg",
-        trend: "up",
-        change: 3
-      },
-      {
-        rank: 6,
-        username: "RisingStar",
-        points: 7600,
-        level: 34,
-        winRate: 66.4,
-        totalMatches: 118,
-        games: ["FIFA", "eFootball", "Call of Duty"],
-        avatar: "/images/player6.jpg",
-        trend: "same",
-        change: 0
-      },
-      {
-        rank: 7,
-        username: "ShadowNinja",
-        points: 7200,
-        level: 33,
-        winRate: 65.1,
-        totalMatches: 105,
-        games: ["eFootball"],
-        avatar: "/images/player7.jpg",
-        trend: "down",
-        change: 2
-      },
-      {
-        rank: 8,
-        username: "ThunderBolt",
-        points: 6800,
-        level: 31,
-        winRate: 63.8,
-        totalMatches: 98,
-        games: ["FIFA", "Call of Duty"],
-        avatar: "/images/player8.jpg",
-        trend: "up",
-        change: 4
-      }
-    ];
+    fetchLeaderboard();
+  }, [category]);
 
-    setTimeout(() => {
-      setLeaderboard(mockLeaderboard);
+  const fetchLeaderboard = async () => {
+    try {
+      const data = await getGlobalLeaderboard(100);
+      const formattedData = data.map((player, index) => ({
+        rank: index + 1,
+        username: player.username,
+        points: player.rank_points || 0,
+        level: 1,
+        winRate: 0,
+        totalMatches: player.tournaments_played || 0,
+        games: player.favorite_game ? [player.favorite_game] : [],
+        avatar: player.avatar_url || "/images/default-avatar.jpg",
+        trend: "same",
+        change: 0
+      }));
+      setLeaderboard(formattedData);
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+    } finally {
       setLoading(false);
-    }, 1000);
-  }, []);
+    }
+  };
 
   const getTrendIcon = (trend) => {
     switch (trend) {
@@ -239,7 +161,7 @@ export default function Leaderboard() {
 
           <div className="podium-item first">
             <div className="rank-badge gold">1</div>
-            <div className="crown">👑</div>
+            <div className="crown"><Crown size={32} /></div>
             <img 
               src={leaderboard[0]?.avatar || "/images/default-avatar.jpg"} 
               alt={leaderboard[0]?.username}
@@ -365,19 +287,19 @@ export default function Leaderboard() {
           </div>
           <div className="performers-list">
             <div className="performer-item">
-              <span className="performer-title">🏆 Most Wins</span>
+              <span className="performer-title"><Trophy size={16} /> Most Wins</span>
               <span className="performer-name">KingSlayer99</span>
             </div>
             <div className="performer-item">
-              <span className="performer-title">🎯 Highest Win Rate</span>
+              <span className="performer-title"><Target size={16} /> Highest Win Rate</span>
               <span className="performer-name">ProGamer2026</span>
             </div>
             <div className="performer-item">
-              <span className="performer-title">⚡ Most Active</span>
+              <span className="performer-title"><Zap size={16} /> Most Active</span>
               <span className="performer-name">ArenaMaster</span>
             </div>
             <div className="performer-item">
-              <span className="performer-title">🔥 Rising Star</span>
+              <span className="performer-title"><Flame size={16} /> Rising Star</span>
               <span className="performer-name">RisingStar</span>
             </div>
           </div>
