@@ -24,18 +24,43 @@ export function AuthProvider({ children }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email, password, username) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          username: username,
-        }
+  const signUp = async (username, email, password) => {
+
+  // 1. Create auth user
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        username: username,
       }
-    });
+    }
+  });
+
+  // stop if signup failed
+  if (error) {
     return { data, error };
-  };
+  }
+
+  // 2. Insert profile AFTER signup succeeds
+  if (data.user) {
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .insert([
+        {
+          id: data.user.id,
+          username: username,
+          email: email,
+        }
+      ]);
+
+    if (profileError) {
+      console.log(profileError.message);
+    }
+  }
+
+  return { data, error };
+};
 
   const signIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({

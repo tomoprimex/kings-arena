@@ -1,4 +1,4 @@
-/* Navbar Styles - Premium Black & Gold Gaming Theme */
+/* Navbar Styles - Premium Black & Gold Gaming Theme - Mobile First */
 :root {
   --navbar-bg: #0B0B0F;
   --navbar-bg-scrolled: #08080C;
@@ -42,28 +42,29 @@
 }
 
 .navbar-spacer {
-  height: 80px;
+  height: 70px;
 }
 
 .navbar-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 70px;
 }
 
 /* Logo */
 .navbar-logo {
   margin-right: auto;
+  margin-left: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .navbar-logo-image {
-  height: 45px;
+  height: 36px;
   width: auto;
   object-fit: contain;
   transition: all 0.3s ease;
@@ -78,13 +79,27 @@
   opacity: 1;
 }
 
-/* Nav Links */
-.navbar-links {
+/* Mobile Menu Toggle - Visible by default on mobile */
+.navbar-toggle {
   display: flex;
   align-items: center;
-  gap: 32px;
-  list-style: none;
-  margin: 0 40px;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--gold-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggle:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* Desktop Nav Links - Hidden by default on mobile */
+.navbar-links {
+  display: none;
 }
 
 .navbar-link {
@@ -130,11 +145,9 @@
   width: 100%;
 }
 
-/* Auth Buttons */
+/* Desktop Auth Buttons - Hidden by default on mobile */
 .navbar-auth-buttons {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  display: none;
 }
 
 .navbar-signin-btn {
@@ -177,9 +190,9 @@
   transform: translateY(-2px);
 }
 
-/* User Dropdown */
+/* Desktop User Dropdown - Hidden by default on mobile */
 .user-dropdown-container {
-  position: relative;
+  display: none;
 }
 
 .user-menu-button {
@@ -301,43 +314,7 @@
   color: var(--text-secondary);
   font-size: 14px;
   padding: 10px 24px;
-}
-
-/* Mobile Menu Toggle */
-.navbar-toggle {
   display: none;
-  background: transparent;
-  border: none;
-  color: var(--gold-primary);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.navbar-toggle:hover {
-  background: rgba(212, 175, 55, 0.1);
-}
-
-/* Mobile Menu Styles */
-@media (max-width: 1024px) {
-  .navbar-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .navbar-links {
-    display: none;
-  }
-
-  .navbar-auth-buttons {
-    display: none;
-  }
-
-  .user-dropdown-container {
-    display: none;
-  }
 }
 
 /* Mobile Menu Overlay */
@@ -357,7 +334,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 280px;
   height: 100vh;
   background: linear-gradient(180deg,
     rgba(11, 11, 15, 0.98) 0%,
@@ -368,22 +345,22 @@
   border-left: 1px solid rgba(212, 175, 55, 0.2);
   z-index: 999;
   overflow-y: auto;
-  padding: 24px;
+  padding: 20px;
 }
 
 .mobile-menu-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .mobile-close-btn {
   background: rgba(212, 175, 55, 0.1);
   border: 1px solid rgba(212, 175, 55, 0.3);
   color: var(--gold-primary);
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -406,21 +383,21 @@
 .navbar-mobile-links {
   list-style: none;
   padding: 0;
-  margin: 0 0 32px 0;
+  margin: 0 0 24px 0;
 }
 
 .navbar-mobile-link {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px;
+  gap: 12px;
+  padding: 14px;
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 12px;
   transition: all 0.3s ease;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .navbar-mobile-link:hover {
@@ -448,17 +425,17 @@
 .mobile-user-section {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
+  gap: 12px;
+  padding: 16px;
   background: rgba(212, 175, 55, 0.05);
   border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .mobile-user-avatar {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--gold-primary);
@@ -478,30 +455,30 @@
 .mobile-user-name {
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 4px;
 }
 
 .mobile-user-greeting {
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .mobile-user-menu {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .mobile-user-link {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 10px;
+  padding: 12px 14px;
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   border-radius: 10px;
   transition: all 0.2s ease;
 }
@@ -514,17 +491,17 @@
 .mobile-logout-btn {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 10px;
+  padding: 12px 14px;
   color: #ff6b6b;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   border-radius: 10px;
   border: none;
   background: rgba(255, 107, 107, 0.1);
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .mobile-logout-btn:hover {
@@ -540,7 +517,7 @@
 .mobile-auth-buttons {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .mobile-signin-btn {
@@ -550,8 +527,8 @@
   color: var(--gold-primary);
   text-decoration: none;
   font-weight: 600;
-  font-size: 15px;
-  padding: 14px;
+  font-size: 14px;
+  padding: 12px;
   border: 2px solid var(--gold-primary);
   border-radius: 12px;
   transition: all 0.3s ease;
@@ -570,8 +547,8 @@
   color: #0B0B0F;
   text-decoration: none;
   font-weight: 600;
-  font-size: 15px;
-  padding: 14px;
+  font-size: 14px;
+  padding: 12px;
   border: none;
   border-radius: 12px;
   background: linear-gradient(135deg,
@@ -584,4 +561,121 @@
 
 .mobile-signup-btn:hover {
   box-shadow: 0 6px 30px rgba(212, 175, 55, 0.5);
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .navbar-container {
+    padding: 0 24px;
+  }
+
+  .navbar-logo-image {
+    height: 40px;
+  }
+
+  .navbar-spacer {
+    height: 72px;
+  }
+
+  .navbar-container {
+    height: 72px;
+  }
+
+  .navbar-mobile {
+    width: 320px;
+    padding: 24px;
+  }
+
+  .mobile-menu-header {
+    margin-bottom: 32px;
+  }
+
+  .navbar-mobile-links {
+    margin-bottom: 32px;
+  }
+
+  .mobile-user-section {
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .mobile-user-avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .mobile-user-name {
+    font-size: 16px;
+  }
+
+  .mobile-user-greeting {
+    font-size: 13px;
+  }
+
+  .mobile-user-link {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .mobile-logout-btn {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .mobile-auth-buttons {
+    gap: 12px;
+  }
+
+  .mobile-signin-btn,
+  .mobile-signup-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .navbar-spacer {
+    height: 80px;
+  }
+
+  .navbar-container {
+    height: 80px;
+    padding: 0 32px;
+  }
+
+  .navbar-logo-image {
+    height: 45px;
+  }
+
+  /* Show desktop nav links */
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+    margin: 0 40px;
+  }
+
+  /* Show desktop auth buttons */
+  .navbar-auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Show desktop user dropdown */
+  .user-dropdown-container {
+    display: block;
+  }
+
+  /* Hide mobile toggle on desktop */
+  .navbar-toggle {
+    display: none;
+  }
+
+  /* Show auth loading on desktop */
+  .navbar-auth-loading {
+    display: block;
+  }
 }
