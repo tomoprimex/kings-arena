@@ -67,7 +67,7 @@ export default function RegisterForm() {
     setLoading(true);
 
     try {
-      await signUp(email, password, { full_name: fullName });
+      await signUp(fullName, email, password);
       router.push("/dashboard");
     } catch (err) {
       setError(err.message || "Failed to create account. Please try again.");
